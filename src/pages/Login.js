@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-//import axios from 'axios';
+import axios from 'axios';
+
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 class Login extends Component {
 
@@ -14,7 +19,6 @@ class Login extends Component {
         };
     };
 
-    /*
     handleSubmit = (e) => {
         e.preventDefault();
         this.setState({
@@ -30,7 +34,7 @@ class Login extends Component {
                 this.setState({
                     loading: false
                 });
-                this.props.history.push('/dashboard');
+                window.location.href = "/dashboard";
             })
             .catch(err => {
                 this.setState({
@@ -45,19 +49,19 @@ class Login extends Component {
             [e.target.name]: e.target.value
         });
     };
-    */
 
     render() {
         return (
-            <div>
-                <h1>Login</h1>
+            <Container component="main" maxWidth="xs">
+                <Typography component="h1" variant="h4">Login</Typography>
+                <p></p>
                 <form onSubmit={this.handleSubmit}>
-                    <input type="text" value={this.state.email} onChange={this.handleChange} placeholder="email" name="email"></input>
-                    <input type="password" value={this.state.password} onChange={this.handleChange} placeholder="password" name="password"></input>
-                    <button type="submit">Login</button>
+                    <TextField autoComplete="email" fullWidth required variant="outlined" label="Username" type="text" value={this.state.email} onChange={this.handleChange} placeholder="email" name="email"></TextField>
+                    <TextField autoComplete="current-password" fullWidth required variant="outlined" label="Password" type="password" value={this.state.password} onChange={this.handleChange} placeholder="password" name="password"></TextField>
+                    <Button fullWidth variant="contained" color="primary" type="submit">Login</Button>
                 </form>
-                <Link to="/signup">Signup Here</Link>
-            </div>
+                <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
+            </Container>
         );
     };
 };

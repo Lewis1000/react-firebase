@@ -11,7 +11,6 @@ const token = localStorage.FBIdToken;
 if (token) {
   const decodedToken = jwtDecode(token);
   if (decodedToken.exp * 1000 < Date.now()) {
-    //window.location.href='/login';
     authenticated = false;
   } else {
     authenticated = true;
@@ -39,7 +38,7 @@ class App extends Component {
     if (this.state.authenticated === false) {
       return(<Signup />);
     } else {
-      return(<Redirect to="dashboard" />);
+      return(<Redirect to="/dashboard" />);
     }
   };
 
