@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+//import axios from 'axios';
 
 class Login extends Component {
 
@@ -14,6 +14,7 @@ class Login extends Component {
         };
     };
 
+    /*
     handleSubmit = (e) => {
         e.preventDefault();
         this.setState({
@@ -44,6 +45,7 @@ class Login extends Component {
             [e.target.name]: e.target.value
         });
     };
+    */
 
     render() {
         return (

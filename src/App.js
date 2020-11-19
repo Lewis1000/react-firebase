@@ -1,7 +1,6 @@
 import { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
-import './App.css';
 
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -12,7 +11,7 @@ const token = localStorage.FBIdToken;
 if (token) {
   const decodedToken = jwtDecode(token);
   if (decodedToken.exp * 1000 < Date.now()) {
-    window.location.href='/login';
+    //window.location.href='/login';
     authenticated = false;
   } else {
     authenticated = true;
@@ -20,27 +19,53 @@ if (token) {
 };
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       authenticated: authenticated,
-      token: localStorage.FBIdToken,
-      test: "This is working"
+      token: localStorage.FBIdToken
     };
+  };
+
+  loginLoad = () => {
+    if (this.state.authenticated === false) {
+      return(<Login />)
+    } else {
+      return(<Redirect to="/dashboard" />);
+    }
+  };
+
+  signupLoad = () => {
+    if (this.state.authenticated === false) {
+      return(<Signup />);
+    } else {
+      return(<Redirect to="dashboard" />);
+    }
+  };
+
+  dashboardLoad = () => {
+    if (this.state.authenticated === true) {
+      return(<Dashboard authenticated={this.state.authenticated} token={this.state.token} />);
+    } else {
+      return(<Redirect to="/login" />);
+    }
   };
 
   render() {
     return (
-      <div className="App">
         <Router>
           <Switch>
-            <Route exact path={["/", "login"]} render={() => <Login authenticated={this.state.authenticated} token={this.state.token}/>} />
-            <Route exact path={["/", "/login"]} component={Login} />
-            <Route exact path="/signup" component={Signup} />
-            <Route exact path="/dashboard" render={() => <Dashboard authenticated={this.state.authenticated} token={this.state.token}/>} />
+            <Route exact path={["/", "/login"]}>
+              {this.loginLoad}
+            </Route>
+            <Route exact path="/signup">
+              {this.signupLoad}
+            </Route>
+            <Route exact path="/dashboard">
+              {this.dashboardLoad}
+            </Route>
           </Switch>
         </Router>
-      </div>
     )
   }
 }
