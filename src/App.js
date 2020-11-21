@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import './App.css';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 
