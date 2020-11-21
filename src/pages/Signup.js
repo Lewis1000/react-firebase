@@ -59,6 +59,8 @@ class Signup extends Component {
                     <Storage />
                 </Avatar>
                 <form onSubmit={this.handleSubmit}>
+                    <TextField style={styles.TextField} autoComplete="name" fullWidth required variant="outlined" label="Name" type="text" placeholder="name" name="name"></TextField>
+                    <TextField style={styles.TextField} autoComplete="name" fullWidth required variant="outlined" label="Surname" type="text" placeholder="surname" name="surname"></TextField>
                     <TextField style={styles.TextField} autoComplete="email" fullWidth required variant="outlined" label="Email" type="text" value={this.state.email} onChange={this.handleChange} placeholder="email" name="email"></TextField>
                     <TextField style={styles.TextField} autoComplete="current-password" fullWidth required variant="outlined" label="Password" type="password" value={this.state.password} onChange={this.handleChange} placeholder="password" name="password"></TextField>
                     <Button style={styles.Button} fullWidth size="large" variant="contained" color="primary" type="submit">Sign up</Button>

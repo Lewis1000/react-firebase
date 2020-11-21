@@ -4,12 +4,28 @@ import React, { Component } from 'react';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Drawer from '@material-ui/core/Drawer';
+import Divider from '@material-ui/core/Divider';
+import ExitToApp from '@material-ui/icons/ExitToApp';
+import MenuIcon from '@material-ui/icons/Menu';
+import IconButton from '@material-ui/core/IconButton';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Home from '@material-ui/icons/Home';
+import Storage from '@material-ui/icons/Storage';
+import MoveToInbox from '@material-ui/icons/MoveToInbox';
+import Person from '@material-ui/icons/Person';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 class Dashboard extends Component {
 
     constructor() {
         super();
         this.state = {
+            drawer: true,
+            show: 'dashboard',
             data: null
         };
     };
@@ -31,43 +47,115 @@ class Dashboard extends Component {
         }
     }; */
 
+    handleLogout = () => {
+        localStorage.removeItem('FBIdToken');
+        window.location.href = "/login";
+    };
+
     render() {
         return (
             <div style={styles.Dashboard}>
-                <AppBar position="absolute">
+                <AppBar style={styles.AppBar} position="fixed">
                     <Toolbar>
-                        <IconButton edge="start" color="inherit" aria-label="open drawer" onClick={handleDrawerOpen}>
+                        <IconButton color="inherit">
                             <MenuIcon />
                         </IconButton>
-                        <Typography component="h1" variant="h6" color="inherit" noWrap>
-                            Dashboard
-                        </Typography>
-                        <IconButton color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
+                        <div style={styles.ToolBarIcon}>
+                            <IconButton color="inherit" onClick={this.handleLogout}>
+                                <ExitToApp />
+                            </IconButton>
+                        </div>
                     </Toolbar>
                 </AppBar>
-                <Drawer variant="permanent" open={open}>
-                    <div>
-                        <IconButton onClick={handleDrawerClose}>
+                <Drawer style={styles.Drawer} variant="permanent" anchor="left">
+                    <Toolbar style={styles.DrawerBar}>
+                        <IconButton>
                             <ChevronLeftIcon />
                         </IconButton>
-                    </div>
+                    </Toolbar>
                     <Divider />
-                        <List>{mainListItems}</List>
+                    <List style={styles.List}>
+                        <ListItem button>
+                            <ListItemIcon>
+                                <Home />
+                            </ListItemIcon>
+                            <ListItemText>Dashboard</ListItemText>
+                        </ListItem>
+                        <ListItem button>
+                            <ListItemIcon>
+                                <Storage />
+                            </ListItemIcon>
+                            <ListItemText>Data</ListItemText>
+                        </ListItem>
+                    </List>
                     <Divider />
-                    <List>{secondaryListItems}</List>
+                    <List style={styles.List}>
+                        <ListItem button>
+                            <ListItemIcon>
+                                <MoveToInbox />
+                            </ListItemIcon>
+                            <ListItemText>Inbox</ListItemText>
+                        </ListItem>
+                        <ListItem button>
+                            <ListItemIcon>
+                                <Person />
+                            </ListItemIcon>
+                            <ListItemText>Profile</ListItemText>
+                        </ListItem>
+                    </List>
+                    <Divider />
+                    <List style={styles.List}>
+                        <ListItem button onClick={this.handleLogout}>
+                            <ListItemIcon>
+                                <ExitToApp />
+                            </ListItemIcon>
+                            <ListItemText>Logout</ListItemText>
+                        </ListItem>
+                    </List>
                 </Drawer>
             </div>
         );
     };
 };
 
+const drawerWidth = 240;
+
 const styles = {
     Dashboard: {
+        height: "100vh",
+        width: "100%"
+    },
+    AppBar: {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        backgroundColor: "#5f27cd"
+    },
+    ToolBar: {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`
+    },
+    ToolBarIcon: {
+        width: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "flex-end"
+    },
+    Drawer: {
+        flexShrink: 0,
+    },
+    DrawerBar: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "flex-end"
+    },
+    drawerOpen: {   
 
+    },
+    drawerClosed: {
+        
+    },
+    List: {
+        width: drawerWidth
     }
 };
 
