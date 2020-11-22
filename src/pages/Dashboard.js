@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-//import axios from 'axios';
-//import { Redirect } from 'react-router-dom';
+import axios from 'axios';
 
 import Dash from '../components/Dash';
 import Table from '../components/Table';
@@ -30,13 +29,12 @@ class Dashboard extends Component {
         super();
         this.state = {
             drawer: true,
-            show: 'dashboard',
+            show: 'dash',
             data: null
         };
     };
 
     componentDidMount() {
-        /*
         if (this.props.authenticated) {
             axios.get('/getdata', {headers: {Bearer: this.props.token}})
             .then(res => {
@@ -48,9 +46,8 @@ class Dashboard extends Component {
                 console.log(err);
             });
         } else {
-            this.setState({redirect: true});
-        }
-        */
+            window.location.href = "/login";
+        };
     };
 
     handleLogout = () => {
@@ -67,12 +64,12 @@ class Dashboard extends Component {
             case "profile":
                 return(<Profile />);
             default:
-                return(<Dash />);
+                return(<Dash data={this.state.data}/>);
         };
     };
 
-    changeComponent = (e) => {
-        console.log(e);
+    changeComponent = (name) => {
+        this.setState({show: name});
     };
 
     render() {
@@ -98,13 +95,13 @@ class Dashboard extends Component {
                     </Toolbar>
                     <Divider />
                     <List style={styles.List}>
-                        <ListItem button onClick={this.changeComponent}>
+                        <ListItem button onClick={() => this.changeComponent('dash')}>
                             <ListItemIcon>
                                 <Home />
                             </ListItemIcon>
                             <ListItemText>Dashboard</ListItemText>
                         </ListItem>
-                        <ListItem button onClick={this.changeComponent}>
+                        <ListItem button onClick={() => this.changeComponent('table')}>
                             <ListItemIcon>
                                 <Storage />
                             </ListItemIcon>
@@ -113,13 +110,13 @@ class Dashboard extends Component {
                     </List>
                     <Divider />
                     <List style={styles.List}>
-                        <ListItem button onClick={this.changeComponent}>
+                        <ListItem button onClick={() => this.changeComponent('inbox')}>
                             <ListItemIcon>
                                 <MoveToInbox />
                             </ListItemIcon>
                             <ListItemText>Inbox</ListItemText>
                         </ListItem>
-                        <ListItem button onClick={this.changeComponent}>
+                        <ListItem button onClick={() => this.changeComponent('profile')}>
                             <ListItemIcon>
                                 <Person />
                             </ListItemIcon>
@@ -150,7 +147,8 @@ const drawerWidth = 240;
 const styles = {
     Dashboard: {
         height: "100vh",
-        width: "100%"
+        width: "100%",
+        backgroundColor: "#f4f6f8"
     },
     AppBar: {
         marginLeft: drawerWidth,
