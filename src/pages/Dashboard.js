@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 //import axios from 'axios';
 //import { Redirect } from 'react-router-dom';
 
+import Dash from '../components/Dash';
+import Table from '../components/Table';
+import Inbox from '../components/Inbox';
+import Profile from '../components/Profile';
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Drawer from '@material-ui/core/Drawer';
@@ -30,8 +35,8 @@ class Dashboard extends Component {
         };
     };
 
-    /*
     componentDidMount() {
+        /*
         if (this.props.authenticated) {
             axios.get('/getdata', {headers: {Bearer: this.props.token}})
             .then(res => {
@@ -45,11 +50,28 @@ class Dashboard extends Component {
         } else {
             this.setState({redirect: true});
         }
-    }; */
+        */
+    };
 
     handleLogout = () => {
         localStorage.removeItem('FBIdToken');
         window.location.href = "/login";
+    };
+
+    showComponent = () => {
+        switch(this.state.show) {
+            case "table":
+                return(<Table />);
+            case "inbox":
+            case "profile":
+                return(<Profile />);
+            default:
+                return(<Dash />);
+        };
+    };
+
+    changeComponent = (e) => {
+        console.log(e);
     };
 
     render() {
@@ -75,13 +97,13 @@ class Dashboard extends Component {
                     </Toolbar>
                     <Divider />
                     <List style={styles.List}>
-                        <ListItem button>
+                        <ListItem button onClick={this.changeComponent}>
                             <ListItemIcon>
                                 <Home />
                             </ListItemIcon>
                             <ListItemText>Dashboard</ListItemText>
                         </ListItem>
-                        <ListItem button>
+                        <ListItem button onClick={this.changeComponent}>
                             <ListItemIcon>
                                 <Storage />
                             </ListItemIcon>
@@ -90,13 +112,13 @@ class Dashboard extends Component {
                     </List>
                     <Divider />
                     <List style={styles.List}>
-                        <ListItem button>
+                        <ListItem button onClick={this.changeComponent}>
                             <ListItemIcon>
                                 <MoveToInbox />
                             </ListItemIcon>
                             <ListItemText>Inbox</ListItemText>
                         </ListItem>
-                        <ListItem button>
+                        <ListItem button onClick={this.changeComponent}>
                             <ListItemIcon>
                                 <Person />
                             </ListItemIcon>
@@ -113,6 +135,10 @@ class Dashboard extends Component {
                         </ListItem>
                     </List>
                 </Drawer>
+                <Toolbar />
+                <div style={styles.Main}>
+                    {this.showComponent()}
+                </div>
             </div>
         );
     };
@@ -156,6 +182,10 @@ const styles = {
     },
     List: {
         width: drawerWidth
+    },
+    Main: {
+        padding: "20px",
+        marginLeft: drawerWidth
     }
 };
 
