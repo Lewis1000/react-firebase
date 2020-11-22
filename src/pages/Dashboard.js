@@ -63,6 +63,7 @@ class Dashboard extends Component {
             case "table":
                 return(<Table />);
             case "inbox":
+                return(<Inbox />);
             case "profile":
                 return(<Profile />);
             default:
