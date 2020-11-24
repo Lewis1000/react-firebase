@@ -1,16 +1,14 @@
 import React from 'react';
 
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 function Profile() {
     return (
         <div>
             <div style={styles.Container}>
-                <Paper style={styles.side} variant="outlined">
-                    
-                </Paper>
                 <Paper style={styles.test} variant="outlined">
-
+                    <Typography variant="button">Currently under construction</Typography>
                 </Paper>
             </div>
         </div>
@@ -23,14 +21,9 @@ const styles = {
         display: "flex"
     },
     test: {
-        height: "200px",
+        width: "100%",
         margin: "10px",
-        width: `calc(75% - 20px)`
-    },
-    side: {
-        height: "200px",
-        margin: "10px",
-        width: "calc(25% - 20px)"
+        padding: "20px"
     }
 };
 

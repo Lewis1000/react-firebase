@@ -22,6 +22,7 @@ import Storage from '@material-ui/icons/Storage';
 import MoveToInbox from '@material-ui/icons/MoveToInbox';
 import Person from '@material-ui/icons/Person';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import { Typography } from '@material-ui/core';
 
 class Dashboard extends Component {
 
@@ -58,13 +59,26 @@ class Dashboard extends Component {
     showComponent = () => {
         switch(this.state.show) {
             case "table":
-                return(<Table />);
+                return(<Table data={this.state.data}/>);
             case "inbox":
                 return(<Inbox />);
             case "profile":
                 return(<Profile />);
             default:
                 return(<Dash data={this.state.data}/>);
+        };
+    };
+
+    currentComponent = () => {
+        switch(this.state.show) {
+            case "table":
+                return("Data");
+            case "inbox":
+                return("Inbox");
+            case "profile":
+                return("Profile");
+            default:
+                return("Home");
         };
     };
 
@@ -135,6 +149,9 @@ class Dashboard extends Component {
                 </Drawer>
                 <Toolbar />
                 <div style={styles.Main}>
+                    <div style={styles.BreadCrumb}>
+                        <Typography style={styles.BreadCrumb} variant="button">Dashboard &nbsp; > &nbsp; {this.currentComponent()}</Typography>
+                    </div>
                     {this.showComponent()}
                 </div>
             </div>
@@ -181,6 +198,10 @@ const styles = {
     },
     List: {
         width: drawerWidth
+    },
+    BreadCrumb: {
+        padding: "10px",
+        marginLeft: "-5px"
     },
     Main: {
         padding: "20px",

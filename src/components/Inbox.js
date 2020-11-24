@@ -1,13 +1,14 @@
 import React from 'react';
 
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 function Inbox() {
     return (
         <div>
             <div style={styles.Container}>
                 <Paper style={styles.test} variant="outlined">
-                    
+                    <Typography variant="button">Currently under construction</Typography>
                 </Paper>
             </div>
         </div>
@@ -21,8 +22,8 @@ const styles = {
     },
     test: {
         width: "100%",
-        height: "200px",
-        margin: "10px"
+        margin: "10px",
+        padding: "20px"
     }
 };
 

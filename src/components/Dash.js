@@ -65,18 +65,18 @@ class Dash extends Component {
                 </div>
                 <div style={styles.Container}>
                     <Paper style={styles.test} variant="outlined">
-                        graph
+                        {/*graph*/}
                     </Paper>
                     <Paper style={styles.side} variant="outlined">
-                        pie chart
+                        {/*pie chart*/}
                     </Paper>
                 </div>
                 <div style={styles.Container}>
                     <Paper style={styles.side} variant="outlined">
-                        members
+                        {/*members*/}
                     </Paper>
                     <Paper style={styles.test} variant="outlined">
-                        recent projects
+                        {/*completed projects*/}
                     </Paper>
                 </div>
             </div>
